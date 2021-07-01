@@ -1,4 +1,4 @@
-package CustumGarbageCollector;
+package CustomGarbageCollector;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

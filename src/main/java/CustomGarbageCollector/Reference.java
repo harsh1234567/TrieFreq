@@ -1,4 +1,4 @@
-package CustumGarbageCollector;
+package CustomGarbageCollector;
 
 
 import java.util.HashSet;

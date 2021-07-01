@@ -1,4 +1,4 @@
-package CustumGarbageCollector;
+package CustomGarbageCollector;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -25,7 +25,6 @@ public class RefQueue<T> {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 

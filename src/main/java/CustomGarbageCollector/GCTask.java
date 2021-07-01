@@ -1,4 +1,4 @@
-package CustumGarbageCollector;
+package CustomGarbageCollector;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -39,7 +39,7 @@ public class GCTask implements Runnable {
 				deleteReferences.add(reference);
 		}
 
-		addToReferenceQueue(deleteReferences);
+		addObjectToQueue(deleteReferences);
 
 		root.getReferences().removeAll(deleteReferences);
 
@@ -48,7 +48,7 @@ public class GCTask implements Runnable {
 		return null;
 	}
 
-	private void addToReferenceQueue(Set<Reference> deleteReferences) {
+	private void addObjectToQueue(Set<Reference> deleteReferences) {
 		for (Reference reference : deleteReferences) {
 			try {
 				if (reference.getObject().getClass().getDeclaredMethod("finalize") == null)
@@ -61,9 +61,8 @@ public class GCTask implements Runnable {
   //mark the used reference 
 
 	private void mark(Reference root, Set<Integer> markSet) {
-
+		
 		Object obj = root.getObject();
-
 		int hashCode = obj.hashCode();
 		if (releaseObj.contains(hashCode)) {
 			return;
