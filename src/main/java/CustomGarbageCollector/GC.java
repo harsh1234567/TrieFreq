@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -14,7 +16,7 @@ public final class GC {
 	private static Map<Integer, Reference> allReferences = new HashMap<>();
 	private static ExecutorService gcExecutor = Executors.newSingleThreadExecutor();
 	private static ExecutorService finalizeExecutor = Executors.newSingleThreadExecutor();
-	private static RefQueue<Object> refObj = new RefQueue<>();
+	private static BlockingQueue<Object> refObj = new ArrayBlockingQueue<>(10000);
 	private static Set<Integer> releaseObj = new HashSet<>();
 
 	private GC() {
@@ -32,20 +34,23 @@ public final class GC {
 ///create the reference in the graph 
 	private static Reference createReferences(Object object, int count) {
 
-		if (object == null)
+		if (object == null) {
 			return null;
-
+		}
 		int hashCode = object.hashCode();
 		Reference reference = allReferences.get(hashCode);
-		if (reference == null)
+		if (reference == null) {
+			System.out.println("create reference for Object:" + object.getClass().getName());
+
 			reference = new Reference(object);
-
-		if (count == 0)
+		}
+		if (count == 0) {
 			root.addReference(reference);
-
+		}
 		for (Field field : object.getClass().getDeclaredFields()) {
 			if (field instanceof Object) {
 				try {
+					System.out.println("create reference for Object:" + field.getName());
 					field.setAccessible(true);
 					reference.addReference(createReferences(field.get(object), ++count));
 				} catch (IllegalAccessException e) {
@@ -53,13 +58,12 @@ public final class GC {
 				}
 			}
 		}
-
 		return reference;
 	}
 
 //release  the reference from the graph 
 	public static synchronized void release(Object object) {
-	System.out.println("init release the object");
+		System.out.println("init release the object");
 		if (object == null)
 			return;
 		releaseObj.add(object.hashCode());
@@ -69,9 +73,9 @@ public final class GC {
 	public static synchronized void gc() {
 		System.out.println("gc call start ");
 		gcExecutor.submit(new GCTask(root, new HashSet<Integer>(releaseObj), refObj));
-		
+
 		releaseObj.clear();
-	   System.out.println("clean up process completed !!");
+		System.out.println("clean up process completed !!");
 	}
 
 }

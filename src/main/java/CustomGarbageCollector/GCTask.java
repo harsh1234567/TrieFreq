@@ -2,6 +2,7 @@ package CustomGarbageCollector;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * @author harsh
@@ -11,9 +12,9 @@ public class GCTask implements Runnable {
 
 	private Reference root;
 	private Set<Integer> releaseObj;
-	private RefQueue refQ;
+	private BlockingQueue refQ;
 
-	public GCTask(Reference root, Set<Integer> releaseObj, RefQueue referenceQueue) {
+	public GCTask(Reference root, Set<Integer> releaseObj, BlockingQueue referenceQueue) {
 		this.root = root;
 		this.releaseObj = releaseObj;
 		this.refQ = referenceQueue;
@@ -26,12 +27,12 @@ public class GCTask implements Runnable {
 		mark(root, markSetBit);
 		sweepReference(root, markSetBit);
 	}
-	// remove the unused reference .
 
+	// remove the unused reference .
 	private Reference sweepReference(Reference root, Set<Integer> markSet) {
 		Object obj = root.getObject();
 
-		int hashCode = obj.hashCode();
+		int hashCode = System.identityHashCode(obj);
 
 		Set<Reference> deleteReferences = new HashSet<>();
 		for (Reference reference : root.getReferences()) {
@@ -48,6 +49,7 @@ public class GCTask implements Runnable {
 		return null;
 	}
 
+//add release reference to queue to finalize the object
 	private void addObjectToQueue(Set<Reference> deleteReferences) {
 		for (Reference reference : deleteReferences) {
 			try {
@@ -58,12 +60,12 @@ public class GCTask implements Runnable {
 			}
 		}
 	}
-  //mark the used reference 
 
+	// mark the used reference
 	private void mark(Reference root, Set<Integer> markSet) {
-		
+
 		Object obj = root.getObject();
-		int hashCode = obj.hashCode();
+		int hashCode = System.identityHashCode(obj);
 		if (releaseObj.contains(hashCode)) {
 			return;
 		} else if (!markSet.add(hashCode)) {

@@ -2,12 +2,13 @@ package CustomGarbageCollector;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.concurrent.BlockingQueue;
 
 public class FinalizeTask<T> implements Runnable {
 
-	private RefQueue<T> refQueue;
+	private BlockingQueue<T> refQueue;
 
-	public FinalizeTask(RefQueue<T> referenceQueue) {
+	public FinalizeTask(BlockingQueue<T> referenceQueue) {
 		this.refQueue = referenceQueue;
 	}
 
@@ -27,16 +28,12 @@ public class FinalizeTask<T> implements Runnable {
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
