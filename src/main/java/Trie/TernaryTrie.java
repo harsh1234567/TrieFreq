@@ -1,6 +1,5 @@
 package Trie;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -45,23 +44,6 @@ public class TernaryTrie {
 			root = insert(word, 0, root);
 	}
 
-	private int maxFreq(Node a) {
-		int maxi = 0;
-		if (a.mid == null) {
-			maxi = a.freq;
-		} else {
-			if (a.mid != null) {
-				maxi = Math.max(a.max, a.mid.max);
-			}
-			if (a.mid != null && a.mid.left != null) {
-				maxi = Math.max(a.max, a.mid.left.max);
-			}
-			if (a.mid != null && a.mid.right != null) {
-				maxi = Math.max(a.max, a.mid.right.max);
-			}
-		}
-		return maxi;
-	}
 
 	// insert  character along with frequency of the character which is
 	// updated on every insertion .
