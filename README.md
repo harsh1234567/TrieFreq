@@ -3,6 +3,14 @@ Typeahead suggestions enable users to search for known and frequently searched t
  
  
  solution 1: in src/trie folder 
+ data structure used:ternary trie with max heap using priority queue.
+ create two methods :
+ 1) insert 
+ 2) search based on prefix
+ 
+ insert -> add character in trie along wiith freq at last end of word 
+ search ->search the element along with freq every time we create max heap (max  priority queue).
+ 
  2.  Design an API Rate limiting system that monitors the number of requests per a window time(i.e. could be second/hour etc) a service agrees to allow. IF the number of requests exceeds the allowed limit the rate limiter should block all excess calls.
  
 System should be designed considering the following:
@@ -19,3 +27,22 @@ System should be designed considering the following:
   3.   How would you design a garbage collection system? The idea here is to design a system that recycles unused memory in the program. Here the key is to find which piece of memory is unused. What data structure would be chosen and how would it be used to ensure garbage collection does not halt the main process?
 
 solution :3: src/customGarbageCollector
+java Garbage collector
+
+
+Identification of unused references and finalization of object happens concurrently.
+
+it is divided into three parts -
+
+GC: This is the main entry point of the module and performs following operations 
+- a) get(Object) : Add new object to the reference graph
+- b) release(Object) : To indicate that object is no more required 
+- c) gc() : Request to start the garbage collection
+
+GCTask: This class is to traverse through graph and identify unused references. It also push collected objects(unused references) to finalize  queue, which is taken care by FinalizeTask
+
+FinalizeTask: FinalizeTask concurrently processes(calls finalize) objects pushed to finalize queue.
+
+Reference: Basic reference implementation is node of graph.
+
+Use cases covered: avoiding cyclic references during traversal. works for both objects with or without finalize method. non blocking implementation of finalize.
