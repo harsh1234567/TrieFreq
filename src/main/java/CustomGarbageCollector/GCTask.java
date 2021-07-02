@@ -28,7 +28,7 @@ public class GCTask implements Runnable {
 		sweepReference(root, markSetBit);
 	}
 
-	// remove the unused reference .
+	// remove the unused reference from reference graph .
 	private Reference sweepReference(Reference root, Set<Integer> markSet) {
 		Object obj = root.getObject();
 
@@ -41,7 +41,7 @@ public class GCTask implements Runnable {
 		}
 
 		addObjectToQueue(deleteReferences);
-
+		
 		root.getReferences().removeAll(deleteReferences);
 
 		if (markSet.contains(hashCode))
