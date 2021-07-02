@@ -15,10 +15,10 @@ Typeahead suggestions enable users to search for known and frequently searched t
  
 System should be designed considering the following:
 
-  a)  Rate limiting should work for a distributed set up as the APIs are available through a group of API Gateways  
+  a)  Rate limiting should work for a distributed set up as the APIs are available through a group of API Gateways -> use redis and sorted set in redis along with sliding window counter 
   b) What database would be used and the rationale behind the choice 
-  c) how would throttling be done 
-  d) the system should be highly available
+  c) how would throttling be done  :using sliding window counter algorithm 
+  d) the system should be highly available :redis
   
   
  solution 2: doc file at root directory .
