@@ -15,7 +15,7 @@ Typeahead suggestions enable users to search for known and frequently searched t
  
 System should be designed considering the following:
 
-  a)  Rate limiting should work for a distributed set up as the APIs are available through a group of API Gateways -> use redis and sorted set in redis along with sliding window counter 
+  a)  Rate limiting should work for a distributed set up as the APIs are available through a group of API Gateways -> use redis and sorted set in redis along with sliding window counter  in this approch we will store timestamp of window in array but in counter window t is more than slindng window in which if we have two same time stamp like 11:29:30 and 11:29:30 ,so we will store in array like timestamp with counter.
   b) What database would be used and the rationale behind the choice 
   c) how would throttling be done  :using sliding window counter algorithm 
   d) the system should be highly available :redis
