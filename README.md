@@ -29,6 +29,7 @@ System should be designed considering the following:
 solution :3: src/customGarbageCollector
 java Garbage collector
 
+data structure : we used graph for containing the reference also using mark ans sweep algorithm.
 
 Identification of unused references and finalization of object happens concurrently.
 
