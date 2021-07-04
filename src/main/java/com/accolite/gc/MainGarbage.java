@@ -1,8 +1,8 @@
-package CustomGarbageCollector;
+package com.accolite.gc;
 
-import CustomGarbageCollector.model.C;
-import CustomGarbageCollector.model.Department;
-import CustomGarbageCollector.model.Employee;
+import com.accolite.gc.model.C;
+import com.accolite.gc.model.Department;
+import com.accolite.gc.model.Employee;
 
 public class MainGarbage {
 	// test garbage collector release C object from reference (from memory )

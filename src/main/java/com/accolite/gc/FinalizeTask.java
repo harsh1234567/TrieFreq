@@ -1,4 +1,4 @@
-package CustomGarbageCollector;
+package com.accolite.gc;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -1,4 +1,4 @@
-package Trie;
+package com.accolite.typeahead;
 
 class Node {
 	Node left, mid, right = null;

@@ -1,4 +1,4 @@
-package CustomGarbageCollector;
+package com.accolite.gc;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

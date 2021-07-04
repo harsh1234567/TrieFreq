@@ -1,4 +1,4 @@
-package CustomGarbageCollector.model;
+package com.accolite.gc.model;
 
 public class Department {
 	private Employee e;
@@ -8,6 +8,6 @@ public class Department {
 	}
 
 	public void finalized() {
-		System.out.println("destory Department ");
+		System.out.println("destroy Department ");
 	}
 }
